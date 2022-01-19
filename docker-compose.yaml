@@ -3,7 +3,7 @@ version: "3"
 services:
   rabbitmq:
     image: rabbitmq:3.8-management-alpine
-    container_name: codeflix-catalog-rabbitmq
+    container_name: codeflix-rabbitmq
     hostname: rabbitmq
     environment:
       - RABBITMQ_DEFAULT_USER=admin
@@ -13,9 +13,5 @@ services:
       - 5672:5672
     volumes:
       - ./.docker/rabbitmqdata:/var/lib/rabbitmq/mnesia
-    networks:
-      - catalog-network
-
-networks:
-  catalog-network:
-    driver: bridge
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
